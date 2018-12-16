@@ -1,0 +1,80 @@
+{
+  "InitStatus": "[1, 1]",
+  "FsmArray": [
+    {
+      "NewStatus": "[2, 1]",
+      "Action": "Ture-42",
+      "CurrentStatus": "[1, 1]"
+    },
+    {
+      "NewStatus": "[4, 1]",
+      "Action": "Timeout-42",
+      "CurrentStatus": "[1, 1]"
+    },
+    {
+      "NewStatus": "[1, 4]",
+      "Action": "Timeout-04",
+      "CurrentStatus": "[1, 1]"
+    },
+    {
+      "NewStatus": "[3, 1]",
+      "Action": "Ture-32414",
+      "CurrentStatus": "[2, 1]"
+    },
+    {
+      "NewStatus": "[5, 1]",
+      "Action": "Timeout-32414",
+      "CurrentStatus": "[2, 1]"
+    },
+    {
+      "NewStatus": "[2, 4]",
+      "Action": "Timeout-04",
+      "CurrentStatus": "[2, 1]"
+    },
+    {
+      "NewStatus": "[4, 2]",
+      "Action": "Ture-04",
+      "CurrentStatus": "[4, 1]"
+    },
+    {
+      "NewStatus": "[2, 4]",
+      "Action": "Ture-42",
+      "CurrentStatus": "[1, 4]"
+    },
+    {
+      "NewStatus": "[4, 4]",
+      "Action": "Timeout-42",
+      "CurrentStatus": "[1, 4]"
+    },
+    {
+      "NewStatus": "[3, 4]",
+      "Action": "Timeout-04",
+      "CurrentStatus": "[3, 1]"
+    },
+    {
+      "NewStatus": "[5, 4]",
+      "Action": "Timeout-04",
+      "CurrentStatus": "[5, 1]"
+    },
+    {
+      "NewStatus": "[3, 4]",
+      "Action": "Ture-32414",
+      "CurrentStatus": "[2, 4]"
+    },
+    {
+      "NewStatus": "[5, 4]",
+      "Action": "Timeout-32414",
+      "CurrentStatus": "[2, 4]"
+    },
+    {
+      "NewStatus": "[4, 3]",
+      "Action": "Ture-12332",
+      "CurrentStatus": "[4, 2]"
+    },
+    {
+      "NewStatus": "[4, 5]",
+      "Action": "Timeout-12332",
+      "CurrentStatus": "[4, 2]"
+    }
+  ]
+}

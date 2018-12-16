@@ -1,0 +1,25 @@
+{
+  "FsmArray": [
+    {
+      "NewStatus": "[2]",
+      "Action": "Ture-ert",
+      "CurrentStatus": "[1]"
+    },
+    {
+      "NewStatus": "[4]",
+      "Action": "Timeout-ert",
+      "CurrentStatus": "[1]"
+    },
+    {
+      "NewStatus": "[3]",
+      "Action": "Ture-rtewt",
+      "CurrentStatus": "[2]"
+    },
+    {
+      "NewStatus": "[5]",
+      "Action": "Timeoutrtewt",
+      "CurrentStatus": "[2]"
+    }
+  ],
+  "InitStatus": "[1]"
+}

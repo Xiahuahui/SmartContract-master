@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    
+    <head>
+        <meta charset="utf-8" />
+        <title>contract</title>
+        <link href="../static/css/style.css" rel="stylesheet" type="text/css" media="all" />    
+        <link href="../static/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />    
+        <link href="../static/css/select2.css" rel="stylesheet"/>
+        <script src="../static/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../static/js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../static/js/select2.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../static/layDate-v5.0.9/laydate/laydate.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <style>
+        td>.form-control {
+            margin: 5px 8px;
+            float: right;
+            width: 1000%;
+            display: inline-block;
+        }
+        
+        .form-control {
+            width: 16%;
+            display: inline-block;
+            
+        }
+        
+        #back {
+            width: 90%;
+            margin: 0 auto;
+            border-style: solid; 
+            border-width: 5px;
+            border-color: rgba( 30,144,255,0.7);
+            border-radius: 30px;
+            font-family:"黑体";
+            font-size: 16px;
+        }
+        #buttondiv{
+            width:250px;           
+            margin: 50px auto;
+        }
+    </style>
+    <script type="text/javascript">
+  
+        var i = 2;
+
+        function add() {
+            var back = document.getElementById("back");
+            var div = document.createElement("div");
+            var str = 'Term'+String(i)+"：<select class='form-control' id='list"+i+"'>"
+                +'<option value="A TO B">A TO B</option>'
+                +'<option value="B TO A">B TO A</option>'
+            +"</select> "+
+                '&nbsp;&nbsp;&nbsp;&nbsp;Precondition(p)：<select class="form-control" style="width: 190px" id="pre'+i+'"/>'+'</select> ' +
+                '&nbsp;&nbsp;&nbsp;&nbsp;Results：<input type="text" class="form-control" id="res'+i+'"/> ' +
+                '&nbsp;&nbsp;&nbsp;&nbsp;Deadline：<input type="date" class="form-control" id="time'+i+'"/> '
+            div.innerHTML = str;
+            back.insertBefore(div, document.getElementById("buttondiv"));
+            div.style.width = "95%";
+            div.style.margin = "10px auto";
+            $("#pre"+i).select2({
+                tags:true,
+                language: "en-US",
+                multiple:true, 
+                allowClear:true,
+            });
+ 
+            /*循环添加前置条件*/
+            for(var j=1;j<=i-1;j++)
+            {
+                $("#pre"+i).append("<option value='Term"+String(j)+" Sat"+"'>Term"+String(j)+" Sat"+"</option>");
+                $("#pre"+i).append("<option value='Term"+String(j)+" Vio"+"'>Term"+String(j)+" Vio"+"</option>");
+                $("#pre"+i).append("<option value='Term"+String(j)+" Exp"+"'>Term"+String(j)+" Exp"+"</option>");
+            }
+
+
+            i+=1;
+       
+        }
+
+        function submit() {
+            var content = [];
+
+            for (var j = 1; j < i; j++) {
+                let res = {};
+                res['person'] = $("#list"+j).val();
+                res['premise'] = $("#pre"+j).val();
+                res['res'] = $("#res"+j).val();
+                res['time'] = $("#time"+j).val();
+                content.push(res)
+            }
+
+            var data = {
+                "username":$("#username").text(),
+                "contract_name":$("#contract_name").val(),
+                "party_a":$("#party_a").val(),
+                //"sig_a":$("#sig_a").val(),
+                "sig_a": "111",
+                "party_b":$("#party_b").val(),
+                //"sig_b":$("#sig_b").val(),
+                "sig_b": "111",
+                "valid_time":$("#valid_time").val(),
+                "object_desc":$("#desc").val(),
+                "content":content
+            }
+
+            for (var key in data) {
+                if (!data[key]) {
+                    alert("The contract is not completed!")
+                    return
+                }
+            }   
+
+            $.ajax({
+                type:"POST",
+                url:"/save",
+                contentType:'application/json; charset=utf-8',
+                data: JSON.stringify(data),
+                success:function(data) {   
+                    alert("submit success!");
+                    $("#form").submit()
+                }
+            });
+        }
+    
+    </script>
+
+    <body>
+        <div class="header" id="header">
+            <div class="container" >
+                <div class="nav-top">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <div class="navbar-brand logo ">
+                            <img src="../static/images/logo.png" alt=" " class="img-responsive" height="120" width="120"/> 
+                        </div>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse nav-wil links" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav ">
+                                <br><br>
+                                <br><br>
+                                <li style="font-size: 20px;" id="username">{{ username }}</li>
+                                
+                            </ul>
+                        <div class="clearfix"></div>
+                        </div><!-- /.navbar-collapse -->
+                </div>
+            </div>
+        </div>
+        <br><br>
+
+        <br>
+        <div id="back" style="margin-bottom:7% ;">
+            <h3 align="center">Quickly generate contract tools</h3>
+            <br>
+            <div style="margin-left: 150px;">
+                <h4><b>Basic Information</b></h4>
+            </div>
+            <div id="table" style="margin-left: 150px;">
+                <table>
+                    <tr>
+                        <td>
+                            <div>
+                            Contract name：&nbsp;&nbsp;&nbsp;&emsp;&emsp;&nbsp;<input type="text" class="form-control" id="contract_name" style="width: 160px" />
+                            </div>
+                        </td>
+                        <td>
+                            <div style="margin-left: 65px; margin-bottom:10px">
+                            Effective time：&nbsp;<input type="date" class="form-control" id="valid_time" style="width: 160px"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>
+                            Party A：&emsp;&emsp;&emsp;&nbsp;&emsp;&emsp;&emsp;&nbsp;<input type="text" class="form-control" id="party_a" style="width: 160px"/>
+                        </div>
+                        </td>
+                        <td>
+                            <div style="margin-left: 65px; margin-bottom:10px">
+                            Party B：&emsp;&emsp;&nbsp;&emsp;<input type="text" class="form-control" id="party_b" style="width: 160px"/>
+                        </div>
+                        </td>
+                    </tr>
+                    
+                </table>
+            </div>
+            <div style="margin-left: 150px;margin-top: 8px">
+                <div style="float: left">
+               Contract description：
+            </div>
+                &nbsp;<textarea class="form-control" id="desc" rows="2" cols="10" style="width: 160px"></textarea>
+            </div>
+            <br>
+            <HR style="width:95%;color:deepskyblue;">
+            <div style="width:95%;margin:15px auto;">
+                <br>
+                Term1：<select type="text" class="form-control"  id='list1'>
+                    <option value="A TO B">A TO B</option>
+                    <option value="B TO A">B TO A</option>
+                </select>
+                &nbsp;&nbsp;&nbsp;
+                Precondition(p)：<select id="pre1" class="form-control" style="width: 190px"></select>
+                    <script type="text/javascript">
+                        $('#pre1').select2({
+                            tags:true,
+                            language: "en-US",
+                            multiple:true, 
+                            allowClear:true,
+                            minimumResultsForSearch: -1,
+                            data: [
+                            ]
+                        });
+                    </script>
+                 &nbsp;&nbsp;&nbsp;
+                Results：<input type="text" class="form-control" id="res1" />
+                &nbsp;&nbsp;&nbsp;
+                Deadline：<input type="date" class="form-control" id="time1"/>
+            </div>
+            <div  id="buttondiv" style="width: 100%;">
+                
+                    <button type="button" onclick="add()" id="button" style="width: 20%;color: deepskyblue;font-size: 20px;float：left;display: inline;margin-left: 20% ;" class="btn btn-default">Add</button>
+                
+                    <button type="button" onclick="submit()" id="button" style="width: 20%;float: right;font-size: 20px;display: inline;margin-right: 20%" class="btn btn-warning">Submit</button>              
+            </div>
+        </div>
+
+        <form id="form" action="/file" method="post">
+            <input type="hidden" id="hint" name="username" value="{{ username }}">
+        </form>
+    </body>
+
+</html>
