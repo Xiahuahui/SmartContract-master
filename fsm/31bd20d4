@@ -1,0 +1,25 @@
+{
+  "FsmArray": [
+    {
+      "Action": "Ture-aas",
+      "NewStatus": "[2]",
+      "CurrentStatus": "[1]"
+    },
+    {
+      "Action": "Timeout-aas",
+      "NewStatus": "[4]",
+      "CurrentStatus": "[1]"
+    },
+    {
+      "Action": "Ture-assault",
+      "NewStatus": "[3]",
+      "CurrentStatus": "[2]"
+    },
+    {
+      "Action": "Timeout-assault",
+      "NewStatus": "[5]",
+      "CurrentStatus": "[2]"
+    }
+  ],
+  "InitStatus": "[1]"
+}

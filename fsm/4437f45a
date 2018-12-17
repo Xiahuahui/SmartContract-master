@@ -1,0 +1,25 @@
+{
+  "FsmArray": [
+    {
+      "CurrentStatus": "[1]",
+      "Action": "Ture-324",
+      "NewStatus": "[2]"
+    },
+    {
+      "CurrentStatus": "[1]",
+      "Action": "Timeout-324",
+      "NewStatus": "[4]"
+    },
+    {
+      "CurrentStatus": "[2]",
+      "Action": "Ture-3242",
+      "NewStatus": "[3]"
+    },
+    {
+      "CurrentStatus": "[2]",
+      "Action": "Timeout-3242",
+      "NewStatus": "[5]"
+    }
+  ],
+  "InitStatus": "[1]"
+}
